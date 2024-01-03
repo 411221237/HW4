@@ -1,37 +1,32 @@
-#include<stdio.h>
+#include <stdio.h>
+#define IS_BOUND(x,y) (x>=0&&x<=7&&y>=0&&y<=7)
+
+void fun1(int chess[8][8], int next[8][8], int i, int j, int color) {
+         for (int dx = -1; dx <= 1; dx++)
+             for (int dy = -1; dy <= 1; dy++)
+                  next[i][j] |= fun2(chess, i+dx,j+dy,dx,dy,color);
+}
+
+int fun2(int chess[8][8], int x, int y, int dx, int dy, color^3) {
+     if (chess[x][y] == color^3 && IN_CHESS(x,y)){
+         while (chess[x][y] == color^3 && IN_CHESS(x,y)){
+              x += dx;
+              y += dy;
+         }
+     if (chess[x][y] == color && IN_CHESS(x,y))
+              return 1;
+     return 0;    
+}
+    
 int main() {
-    int x,y,color,dx,dy;
-    int chess[8][8]={
-    {0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0},
-    {0,0,0,1,2,0,0,0},
-    {0,0,0,2,1,0,0,0},
-    {0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0},
-    {0,0,0,0,0,0,0,0}};
-//--------------------------------------------------   
-    scanf("%d %d %d",&x,&y,&color);
-    if(chess[x][y]==0)
-        printf("這個位子沒有棋子");
-    if(chess[x][y]==1)
-        printf("這個位子是黑棋");
-    if(chess[x][y]==2)
-        printf("這個位子是白棋");
-
-//--------------------------------------------------        
-    chess[x][y]=color;
-    for(int i=2;i<8;i++){
-        for(dx=-1;dx<=1;dx++){
-            for(dy=-1;dy<=1;dy++){
-                int _x=x+i*dx;
-                int _y=y=i*dy;
-                if(_x>=0 && _x<=7 && _y>0 && _y<=7){
-                    if(chess[_x][_y]==chess[x][y] || chess[_x][_y]==0)
-                        break;
-                }
-            }
+    int chess[8][8], next[8][8];
+    int color;
+    scanf("%d%d", &x, &y);
+    scanf("%d", &color)
+    for (int i = 0; i <= 7; i++)
+        for (int j = 0; j <= 7; j++){
+            if (chess[i][j] == 0)
+                fun1(chess, next, i, j, color);
         }
-    }
-
+    return 0;
 }
