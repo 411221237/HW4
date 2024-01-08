@@ -1,4 +1,5 @@
 #include<stdio.h>
+
 char chess[8][8]={{'0','0','0','0','0','0','0','0'},
                   {'0','0','0','0','0','0','0','0'},
                   {'0','0','0','0','0','0','0','0'},
@@ -8,13 +9,13 @@ char chess[8][8]={{'0','0','0','0','0','0','0','0'},
                   {'0','0','0','0','0','0','0','0'},
                   {'0','0','0','0','0','0','0','0'}};
 char next[8][8];
-int check(short y,short x,short xt,short yt,char input){
+int check(short y,short x,short xt,short yt,char data){
     int c=0;
     int n=0;
     for (int i = x+xt,j=y+yt; i >-1 && j >-1 && j<8 && i<8; i+=xt,j+=yt){
         n++;
-        if(chess[j][i]==input)  return 0;
-        if(chess[j][i]!=input&&chess[j][i]!='0')    c=1;
+        if(chess[j][i]==data)  return 0;
+        if(chess[j][i]!=data&&chess[j][i]!='0')    c=1;
         if(chess[j][i]=='0'){
             if(c==1){
                 return n;
@@ -23,8 +24,8 @@ int check(short y,short x,short xt,short yt,char input){
         }
     }return 0;
 }
-void dnext(char input,short j,short i){
-    if(input=='1'){
+void dnext(char data,short j,short i){
+    if(data=='1'){
         if(next[j][i]!='2'){
             next[j][i]='1';
         }else{
@@ -34,16 +35,16 @@ void dnext(char input,short j,short i){
             if(next[j][i]!='1'){
                 next[j][i]='2';
             }else{
-                next[j][i]='3';
+                next[j][i]='3';//
             }
     }
 }
-void printInput(char input){
+void printData(char data){
     int d=0;
-    input=(input=='1') ?'1':'2';
+    data=(data=='1') ?'1':'2';
     for (int i = 0; i < 8; i++){
         for (int j = 0; j < 8; j++){
-            if(next[i][j]==input||next[i][j]=='3'){
+            if(next[i][j]==data||next[i][j]=='3'){
                 if(d==1)    printf(",");
                 else    d=1;
                 printf("(%d,%d)",i,j);
@@ -112,11 +113,11 @@ int main(){
                 printf("黑子無法下");
                 continue;
             }
-            printInput('1');
+            printData('1');
             int x,y;
-            char haha;
-            printf("input ");
-            scanf("%1d%c%1d",&x,&haha,&y);
+            char target;
+            printf("data ");
+            scanf("%1d%c%1d",&x,&target,&y);
             if (next[x][y]!='1'&&next[x][y]!='3'){
                 printf("這裡不能下!");
                 col=1;
@@ -162,5 +163,7 @@ int main(){
         }
     }
     printf("黑子:%d 白子:%d\n",b,w);
-    (b>w)?printf("黑勝"):printf("白勝");
+    if(b>w)
+        printf("黑勝");
+    printf("白勝");
 }
