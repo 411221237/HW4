@@ -1,5 +1,4 @@
 #include<stdio.h>
-
 char chess[8][8]={{'0','0','0','0','0','0','0','0'},
                   {'0','0','0','0','0','0','0','0'},
                   {'0','0','0','0','0','0','0','0'},
@@ -35,11 +34,11 @@ void dnext(char data,short j,short i){
             if(next[j][i]!='1'){
                 next[j][i]='2';
             }else{
-                next[j][i]='3';//
+                next[j][i]='3';
             }
     }
 }
-void printData(char data){
+void output_data(char data){
     int d=0;
     data=(data=='1') ?'1':'2';
     for (int i = 0; i < 8; i++){
@@ -84,8 +83,16 @@ short checkColor(char color){
 int main(){
     short col=1;
     while(1){
+        (col==1)?printf("1 你黑棋下"):printf("2 電腦白棋下");
+        printf("\n  |");
+        for (int i = 0; i < 8; i++)
+            printf("%d ",i);
+        printf("\n--+");
+        for (int i = 0; i < 8; i++)
+            printf("--");
         printf("\n");
         for (int i = 0; i < 8; i++){
+            printf("%d |",i);
             for (int j = 0; j < 8; ){
                 next[i][j]='0';
                 printf("%c ",chess[i][j]);
@@ -110,16 +117,16 @@ int main(){
         if(col==1){
             col=2;
             if(!checkColor('1')){
-                printf("黑子無法下");
+                printf("黑子無法下\n");
                 continue;
             }
-            printData('1');
+            output_data('1');
             int x,y;
             char target;
             printf("data ");
             scanf("%1d%c%1d",&x,&target,&y);
             if (next[x][y]!='1'&&next[x][y]!='3'){
-                printf("這裡不能下!");
+                printf("這裡不能下!\n");
                 col=1;
                 continue;
             }
@@ -129,7 +136,7 @@ int main(){
         }else{
             col=1;
             if(!checkColor('2')){
-                printf("白子無法下");
+                printf("白子無法下\n");
                 continue;
             }
             
@@ -152,6 +159,7 @@ int main(){
             for (short i = -1; i < 2; i++)
                 for (short j = -1; j < 2; j++)
                     filp(maxX,maxY,i,j,'2',1);        
+            printf("電腦下%d %d,可翻%d個\n",maxX,maxY,maxF);
         }
         
     }
@@ -163,7 +171,5 @@ int main(){
         }
     }
     printf("黑子:%d 白子:%d\n",b,w);
-    if(b>w)
-        printf("黑勝");
-    printf("白勝");
+    (b>w)?printf("黑勝"):printf("白勝");
 }
