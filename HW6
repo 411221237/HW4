@@ -38,7 +38,7 @@ void dnext(char data,short j,short i){
             }
     }
 }
-void printData(char data){
+void output_data(char data){
     int d=0;
     data=(data=='1') ?'1':'2';
     for (int i = 0; i < 8; i++){
@@ -120,7 +120,7 @@ int main(){
                 printf("黑子無法下\n");
                 continue;
             }
-            printData('1');
+            output_data('1');
             int x,y;
             char target;
             printf("data ");
